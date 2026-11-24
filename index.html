@@ -152,7 +152,10 @@
   .flow li.key svg{stroke:var(--ink)}
   .flow b{display:block;font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.2}
   .flow span{display:block;color:var(--slate);font-size:.82rem;line-height:1.4;margin-top:4px}
-  .token{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;background:transparent;border:2.5px solid var(--marigold);box-shadow:0 0 0 5px rgba(227,160,47,.15);left:0;top:0;opacity:0;z-index:2;pointer-events:none;transition:left .5s var(--ease),top .5s var(--ease),opacity .3s}
+  .flow .icon{position:relative}
+  .flow .icon::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2.5px solid var(--marigold);box-shadow:0 0 0 5px rgba(227,160,47,.15);opacity:0;transform:scale(.85);pointer-events:none}
+  .flow li.ping .icon::after{animation:ping .65s var(--ease) both}
+  @keyframes ping{0%{opacity:0;transform:scale(.85)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
   .flow-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule)}
   .flow-detail{font-size:.95rem;color:var(--ink);min-height:1.6em}
   .flow-detail b{font-family:var(--display)}
@@ -270,7 +273,6 @@
     .flow li{text-align:left}
     .flow li + li::before{top:-18px;left:23px;right:auto;width:2px;height:18px}
     .flow .icon{width:48px;height:48px;margin:0;grid-row:span 2}
-    .token{width:62px;height:62px;margin:-31px 0 0 -31px}
     .flow span{margin-top:0}
     .flow-foot{flex-direction:column;align-items:flex-start}
     .bar{grid-template-columns:1fr;gap:6px}
@@ -560,31 +562,22 @@
   pick($('.path li.now'));
 
   /* ---------- Venture flows ---------- */
-  function centerOf(flowbox, li){
-    var r = $('.icon', li).getBoundingClientRect(), b = flowbox.getBoundingClientRect();
-    return {x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2};
-  }
-  function moveToken(flow, i){
-    var box = flow.parentNode, t = box._token, li = flow.children[i];
-    if(!t || !li) return;
-    var c = centerOf(box, li);
-    t.style.left = c.x + 'px'; t.style.top = c.y + 'px';
-    box._at = i;
-  }
   function playFlow(flow){
     if(reduce) return;
     var box = flow.parentNode, items = $$('li', flow);
-    if(!box._token){ box._token = document.createElement('span'); box._token.className = 'token'; box.appendChild(box._token); }
     (box._timers || []).forEach(clearTimeout); box._timers = [];
     flow.classList.add('armed');
-    items.forEach(function(li){ li.classList.remove('lit'); });
-    var t = box._token;
-    t.style.transition = 'none'; moveToken(flow, 0); void t.offsetWidth; t.style.transition = '';
-    t.style.opacity = '1';
+    items.forEach(function(li){ li.classList.remove('lit', 'ping'); });
     items.forEach(function(li, i){
-      box._timers.push(setTimeout(function(){ li.classList.add('lit'); moveToken(flow, i); }, 250 + i * 650));
+      box._timers.push(setTimeout(function(){
+        items.forEach(function(x){ x.classList.remove('ping'); });
+        li.classList.add('lit', 'ping');
+      }, 250 + i * 650));
     });
-    box._timers.push(setTimeout(function(){ flow.classList.remove('armed'); t.style.opacity = '0'; }, 250 + items.length * 650));
+    box._timers.push(setTimeout(function(){
+      flow.classList.remove('armed');
+      items.forEach(function(x){ x.classList.remove('ping'); });
+    }, 250 + items.length * 650));
   }
   $$('.flowbox').forEach(function(box){
     var flow = $('.flow', box), out = $('.flow-detail', box);
@@ -601,9 +594,6 @@
     });
     $('.replay', box).addEventListener('click', function(){ playFlow(flow); });
     if(reduce) $('.replay', box).hidden = true;
-  });
-  addEventListener('resize', function(){
-    $$('.flowbox').forEach(function(box){ if(box._token) moveToken($('.flow', box), box._at || 0); });
   });
 
   /* ---------- Lightbox ---------- */
