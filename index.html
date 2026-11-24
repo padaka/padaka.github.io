@@ -173,10 +173,9 @@
   .flow li.ping .icon::after{animation:ping .65s var(--ease) both}
   @keyframes ping{0%{opacity:0;transform:scale(.85)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
   .flow-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule)}
+  .flow-foot:has(.flow-detail:empty){display:none}
   .flow-detail{font-size:var(--fs-sm);color:var(--ink);min-height:1.6em}
   .flow-detail b{font-family:var(--display)}
-  .replay{flex:none;font-size:var(--fs-xs);font-weight:600;color:var(--spruce);padding:6px 12px;border-radius:999px;border:1.5px solid var(--rule);transition:border-color .2s,background .2s}
-  .replay:hover{border-color:var(--spruce);background:var(--paper)}
 
   /* ---------- Product visuals ---------- */
   .shots{grid-column:1/-1;display:grid;gap:16px}
@@ -372,7 +371,6 @@
           </ol>
           <div class="flow-foot">
             <p class="flow-detail" aria-live="polite"></p>
-            <button class="replay" type="button">Play again</button>
           </div>
         </div>
         <div>
@@ -401,7 +399,6 @@
           </ol>
           <div class="flow-foot">
             <p class="flow-detail" aria-live="polite"></p>
-            <button class="replay" type="button">Play again</button>
           </div>
         </div>
         <div class="shots duo">
@@ -616,8 +613,6 @@
       $('.step', li).addEventListener('click', show);
       $('.step', li).addEventListener('focus', show);
     });
-    $('.replay', box).addEventListener('click', function(){ playFlow(flow); });
-    if(reduce) $('.replay', box).hidden = true;
   });
 
   /* ---------- Lightbox ---------- */
