@@ -201,6 +201,7 @@
   .chart{margin:26px 0 6px;padding:22px 24px;background:var(--mist);border-radius:18px;max-width:60ch}
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .stat .n{font-family:var(--display);font-weight:700;font-size:var(--fs-h3);line-height:var(--lh-tight);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .chart figcaption{font-size:var(--fs-xs);color:var(--slate);margin-top:14px}
   .stat .l{font-size:var(--fs-xs);color:var(--slate);margin-top:6px;line-height:1.4}
 
   /* ---------- Portrait ---------- */
@@ -364,6 +365,13 @@
         </div>
         <div>
           <p>A giving platform where communities raise needs, verified experts vet the proposed solutions and funders release money only as milestones are met. Anyone can see where the money went and what it achieved.</p>
+          <figure class="chart">
+            <div class="stats">
+              <div class="stat"><div class="n" data-to="645279" data-dec="0">645,279</div><div class="l">Californians served by failing water systems</div></div>
+              <div class="stat"><div class="n" data-to="4.9" data-pre="$" data-suf="B">$4.9B</div><div class="l">needed to fix failing and at-risk systems, against about $181M a year in state grants</div></div>
+            </div>
+            <figcaption>Source: California State Water Board, as of Dec 31, 2025</figcaption>
+          </figure>
         </div>
         <dl>
           <div><dt>Who it helps</dt><dd>Communities with unmet needs, experts whose vetting should count and funders who want proof their money worked</dd></div>
@@ -613,10 +621,11 @@
   function countUp(chart){
     $$('.stat .n', chart).forEach(function(n){
       var to = parseFloat(n.dataset.to), pre = n.dataset.pre || '', suf = n.dataset.suf || '', t0 = null, dur = 1200;
+      var dec = n.dataset.dec ? +n.dataset.dec : 1;
       function step(ts){
         if(!t0) t0 = ts;
         var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-        n.textContent = pre + (to * e).toFixed(1) + suf;
+        n.textContent = pre + (dec === 0 ? Math.round(to * e).toLocaleString('en-US') : (to * e).toFixed(dec)) + suf;
         if(p < 1) requestAnimationFrame(step);
       }
       if(!reduce) requestAnimationFrame(step);
