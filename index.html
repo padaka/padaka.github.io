@@ -152,7 +152,7 @@
   .flow li.key svg{stroke:var(--ink)}
   .flow b{display:block;font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.2}
   .flow span{display:block;color:var(--slate);font-size:.82rem;line-height:1.4;margin-top:4px}
-  .token{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--marigold);box-shadow:0 0 0 4px rgba(227,160,47,.25);left:0;top:0;opacity:0;z-index:2;pointer-events:none;transition:left .5s var(--ease),top .5s var(--ease),opacity .3s}
+  .token{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;background:transparent;border:2.5px solid var(--marigold);box-shadow:0 0 0 5px rgba(227,160,47,.15);left:0;top:0;opacity:0;z-index:2;pointer-events:none;transition:left .5s var(--ease),top .5s var(--ease),opacity .3s}
   .flow-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule)}
   .flow-detail{font-size:.95rem;color:var(--ink);min-height:1.6em}
   .flow-detail b{font-family:var(--display)}
@@ -270,6 +270,7 @@
     .flow li{text-align:left}
     .flow li + li::before{top:-18px;left:23px;right:auto;width:2px;height:18px}
     .flow .icon{width:48px;height:48px;margin:0;grid-row:span 2}
+    .token{width:62px;height:62px;margin:-31px 0 0 -31px}
     .flow span{margin-top:0}
     .flow-foot{flex-direction:column;align-items:flex-start}
     .bar{grid-template-columns:1fr;gap:6px}
