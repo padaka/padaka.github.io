@@ -1,1 +1,709 @@
-<h1>MORE TO COME</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Paul Kang, builder</title>
+<meta name="description" content="Paul Kang: engineer by training, learning to build the whole product. Systems that measurably help people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mist:#F2F5F4;      /* page */
+    --paper:#FFFFFF;     /* raised surfaces */
+    --ink:#18202A;       /* text */
+    --spruce:#1E4D45;    /* primary */
+    --marigold:#E3A02F;  /* signal, used sparingly */
+    --slate:#5B6570;     /* secondary text */
+    --rule:#D5DCDA;      /* lines */
+    --max:1120px;
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"IBM Plex Sans",system-ui,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--mist);color:var(--ink);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+  :focus-visible{outline:3px solid var(--marigold);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .todo{background:#FBE7BF;border-radius:3px;padding:0 4px}
+  .btn .todo{color:var(--ink);font-weight:500}
+  [id]{scroll-margin-top:84px}
+
+  /* ---------- Top bar (sticky nav) ---------- */
+  .topbar{position:sticky;top:0;z-index:20;transition:background .25s,box-shadow .25s}
+  .topbar.scrolled{background:rgba(242,245,244,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--rule)}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;transition:padding .25s}
+  .scrolled .nav{padding:14px 0}
+  .nav .name{font-family:var(--display);font-weight:700;font-size:1.1rem;text-decoration:none;letter-spacing:-.01em}
+  .nav ul{display:flex;gap:28px;list-style:none}
+  .nav ul a{text-decoration:none;color:var(--slate);font-size:.95rem;padding:4px 0;background:linear-gradient(var(--spruce),var(--spruce)) left bottom/0 2px no-repeat;transition:color .2s,background-size .3s var(--ease)}
+  .nav ul a:hover,.nav ul a[aria-current="true"]{color:var(--spruce);background-size:100% 2px}
+  .progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--marigold);transform:scaleX(0);transform-origin:left}
+
+  /* ---------- Hero ---------- */
+  .hero-band{position:relative;overflow:hidden;margin-top:-76px;padding-top:76px}
+  #net{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 92%);mask-image:linear-gradient(to bottom,#000 55%,transparent 92%)}
+  .hero{position:relative;padding:72px 0 40px}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,10vw,7.5rem);line-height:.92;letter-spacing:-.035em;color:var(--spruce)}
+  .hero h1 .w{display:inline-block}
+  .js .hero h1 .w{animation:rise .9s var(--ease) both}
+  .js .hero h1 .w:nth-child(2){animation-delay:.08s}
+  .js .hero h1 .w:nth-child(3){animation-delay:.16s}
+  .js .hero .tagline,.js .hero .lede,.js .hero .actions{animation:rise .9s var(--ease) both}
+  .js .hero .tagline{animation-delay:.3s}
+  .js .hero .lede{animation-delay:.4s}
+  .js .hero .actions{animation-delay:.5s}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .hero .tagline{font-family:var(--display);font-weight:500;font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.25;margin-top:22px;max-width:28ch;letter-spacing:-.01em}
+  .hero .lede{margin-top:22px;color:var(--slate);max-width:56ch;font-size:1.1rem}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid var(--spruce);transition:background .2s,color .2s,transform .2s var(--ease),box-shadow .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0) scale(.98)}
+  .btn .arr{display:inline-block;transition:transform .25s var(--ease)}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn.solid{background:var(--spruce);color:#fff}
+  .btn.solid:hover{background:#163a34;box-shadow:0 8px 20px -8px rgba(30,77,69,.55)}
+  .btn.line{color:var(--spruce)}
+  .btn.line:hover{background:var(--paper)}
+
+  /* ---------- Path (career timeline) ---------- */
+  .path{margin:80px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+  .path::before{content:"";position:absolute;left:0;width:calc(100% * 4 / 5);top:9px;height:2px;background:var(--spruce);transform-origin:left;transition:transform 1.4s cubic-bezier(.6,0,.2,1)}
+  .js .path:not(.in)::before{transform:scaleX(0)}
+  .path li{position:relative}
+  .path li:last-child::after{content:"";position:absolute;left:20px;right:-28px;top:9px;height:2px;background:repeating-linear-gradient(90deg,var(--spruce) 0 6px,transparent 6px 12px);opacity:.55;-webkit-mask-image:linear-gradient(to right,#000 40%,transparent);mask-image:linear-gradient(to right,#000 40%,transparent);pointer-events:none;transition:opacity .5s ease 1.3s}
+  .js .path:not(.in) li:last-child::after{opacity:0}
+  .path .stop{display:block;width:100%;padding:36px 12px 6px 0;border-radius:8px}
+  .path .stop::before{content:"";position:absolute;top:0;left:0;width:20px;height:20px;border-radius:50%;background:var(--spruce);border:4px solid var(--mist);box-sizing:border-box;z-index:1;transition:transform .25s var(--ease),box-shadow .25s}
+  .js .path:not(.in) .stop::before{transform:scale(0)}
+  .path li:nth-child(2) .stop::before{transition-delay:.2s}
+  .path li:nth-child(3) .stop::before{transition-delay:.45s}
+  .path li:nth-child(4) .stop::before{transition-delay:.7s}
+  .path li:nth-child(5) .stop::before{transition-delay:.95s}
+  .path.in .stop:hover::before,.path .sel .stop::before{transform:scale(1.25);transition-delay:0s}
+  .path .sel .stop::before{box-shadow:0 0 0 3px var(--marigold)}
+  .path li.now .stop::before{background:var(--marigold)}
+  .path b{display:block;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em;transition:color .2s}
+  .path .stop:hover b,.path .sel b{color:var(--spruce)}
+  .path span{display:block;color:var(--slate);font-size:.88rem;line-height:1.45;margin-top:2px}
+  .path-detail{margin-top:22px;background:var(--paper);border-radius:18px;padding:20px 24px;display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;min-height:88px;max-width:760px;box-shadow:0 1px 0 var(--rule)}
+  .path-detail .k{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--spruce);grid-row:span 2}
+  .path-detail .t{font-weight:600}
+  .path-detail .d{color:var(--slate);font-size:.95rem;grid-column:2}
+  .path-detail.swap{animation:swap .35s var(--ease)}
+  @keyframes swap{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .hint{font-size:.85rem;color:var(--slate);margin-top:10px}
+
+  /* ---------- Reveal on scroll ---------- */
+  .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .js .reveal.in{opacity:1;transform:none}
+
+  /* ---------- Sections ---------- */
+  section{padding:120px 0 0}
+  .head{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:end;margin-bottom:56px}
+  .head h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;letter-spacing:-.03em}
+  .head p{color:var(--slate);max-width:58ch}
+
+  /* ---------- Ventures ---------- */
+  .venture{background:var(--paper);border-radius:28px;padding:56px;display:grid;grid-template-columns:7fr 5fr;gap:56px;transition:box-shadow .35s,transform .35s var(--ease)}
+  .venture.in:hover{box-shadow:0 24px 48px -28px rgba(24,32,42,.28)}
+  .venture.lead{box-shadow:inset 0 6px 0 var(--marigold)}
+  .venture.lead.in:hover{box-shadow:inset 0 6px 0 var(--marigold),0 24px 48px -28px rgba(24,32,42,.28)}
+  .venture.lead h3{font-size:clamp(1.9rem,3.8vw,2.7rem)}
+  .venture.past{padding:44px 56px}
+  .venture + .venture{margin-top:28px}
+  .status{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;color:var(--slate);margin-bottom:18px}
+  .status::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--marigold)}
+  .status.live::before{animation:pulse 2.2s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(227,160,47,.6)}70%,100%{box-shadow:0 0 0 9px rgba(227,160,47,0)}}
+  .status.done::before{background:var(--spruce)}
+  .venture h3{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:20px}
+  .venture p{margin-bottom:14px;max-width:60ch}
+  .venture .lesson{border-left:4px solid var(--marigold);padding:4px 0 4px 18px;margin:22px 0 4px;font-style:italic;color:var(--ink)}
+  .venture .actions{margin-top:26px}
+  .venture dl{align-self:start;border-top:2px solid var(--ink)}
+  .venture dl div{padding:16px 0;border-bottom:1px solid var(--rule)}
+  .venture dt{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:2px}
+  .venture dd{color:var(--slate);font-size:.95rem;line-height:1.5}
+
+  /* ---------- Venture flow diagrams ---------- */
+  .flowbox{grid-column:1/-1;background:var(--mist);border-radius:20px;padding:32px 24px 22px;margin-bottom:8px;position:relative}
+  .flow{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+  .flow li{position:relative;text-align:center}
+  .flow li + li::before{content:"";position:absolute;top:27px;right:calc(50% + 36px);width:calc(100% - 72px);height:2px;background:var(--spruce);opacity:.25;transition:opacity .4s}
+  .flow li.lit + li.lit::before,.flow:not(.armed) li + li::before{opacity:.8}
+  .flow .step{display:block;width:100%;padding:0 8px 6px;text-align:center;border-radius:14px}
+  .flow .icon{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--paper);display:grid;place-items:center;border:2px solid var(--spruce);transition:transform .35s var(--ease),box-shadow .35s,opacity .35s,background .25s}
+  .flow.armed li:not(.lit) .icon{opacity:.4;transform:scale(.88)}
+  .flow.armed li:not(.lit) b,.flow.armed li:not(.lit) span{opacity:.5}
+  .flow b,.flow span{transition:opacity .35s}
+  .flow li.key .icon{background:var(--marigold);border-color:var(--marigold)}
+  .flow .step:hover .icon{transform:translateY(-3px);box-shadow:0 8px 18px -10px rgba(30,77,69,.6)}
+  .flow li.sel .icon{box-shadow:0 0 0 4px var(--mist),0 0 0 6px var(--marigold)}
+  .flow svg{width:26px;height:26px;fill:none;stroke:var(--spruce);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .flow li.key svg{stroke:var(--ink)}
+  .flow b{display:block;font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.2}
+  .flow span{display:block;color:var(--slate);font-size:.82rem;line-height:1.4;margin-top:4px}
+  .token{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--marigold);box-shadow:0 0 0 4px rgba(227,160,47,.25);left:0;top:0;opacity:0;z-index:2;pointer-events:none;transition:left .5s var(--ease),top .5s var(--ease),opacity .3s}
+  .flow-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule)}
+  .flow-detail{font-size:.95rem;color:var(--ink);min-height:1.6em}
+  .flow-detail b{font-family:var(--display)}
+  .replay{flex:none;font-size:.85rem;font-weight:600;color:var(--spruce);padding:6px 12px;border-radius:999px;border:1.5px solid var(--rule);transition:border-color .2s,background .2s}
+  .replay:hover{border-color:var(--spruce);background:var(--paper)}
+
+  /* ---------- Product visuals ---------- */
+  .shots{grid-column:1/-1;display:grid;gap:16px}
+  .shots.trio{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+  .shots.trio .shot:first-child{grid-row:span 2}
+  .shots.duo{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .shot{margin:0}
+  .shot .zoom{display:block;width:100%;height:100%;border-radius:16px;overflow:hidden;background:var(--mist);box-shadow:0 0 0 1px var(--rule);cursor:zoom-in;transition:transform .35s var(--ease),box-shadow .35s}
+  .shot .zoom:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--rule),0 20px 36px -22px rgba(24,32,42,.45)}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform .6s var(--ease)}
+  .shot .zoom:hover img{transform:scale(1.02)}
+  .shots-note{grid-column:1/-1;font-size:.85rem;color:var(--slate);margin-top:-36px}
+  .lightbox{border:0;padding:0;background:transparent;max-width:min(1400px,94vw);max-height:92vh;margin:auto;overflow:visible}
+  .lightbox::backdrop{background:rgba(24,32,42,.92)}
+  .lightbox img{display:block;max-width:100%;max-height:86vh;border-radius:14px}
+  .lightbox p{color:#E7EFEC;font-size:.9rem;margin-top:10px;max-width:80ch;background:var(--ink);padding:8px 12px;border-radius:8px;display:inline-block}
+  .lightbox .close{position:absolute;top:-14px;right:-14px;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);font-size:1.4rem;line-height:1;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .lightbox[open]{animation:pop .3s var(--ease)}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+  /* ---------- Ecotein chart ---------- */
+  .chart{margin:26px 0 6px;padding:22px 24px;background:var(--mist);border-radius:18px;max-width:60ch}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+  .stat .n{font-family:var(--display);font-weight:800;font-size:2.4rem;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .stat .l{font-size:.85rem;color:var(--slate);margin-top:6px;line-height:1.4}
+  .bars-title{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:12px}
+  .bar{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;margin-bottom:10px;position:relative}
+  .bar .lab{font-size:.88rem;color:var(--ink);line-height:1.3}
+  .bar .track{height:22px;position:relative;outline:none}
+  .bar .fill{position:absolute;left:0;top:0;bottom:0;width:var(--w);border-radius:0 4px 4px 0;transform-origin:left;transition:transform 1.1s var(--ease)}
+  .js .chart:not(.in) .fill{transform:scaleX(0)}
+  .bar.cost .fill{background:var(--marigold);transition-delay:.25s}
+  .bar.price .fill{background:var(--spruce)}
+  .bar .track:hover .fill,.bar .track:focus-visible .fill{filter:brightness(1.08)}
+  .tip{position:absolute;bottom:calc(100% + 8px);left:var(--w);transform:translateX(-50%);background:var(--ink);color:#fff;font-size:.8rem;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+  .bar .track:hover .tip,.bar .track:focus-visible .tip{opacity:1}
+  .chart figcaption{font-size:.82rem;color:var(--slate);margin-top:12px}
+
+  /* ---------- Portrait ---------- */
+  .portrait{margin-top:32px;aspect-ratio:4/5;max-width:300px;border-radius:24px;overflow:hidden;background:var(--paper);border:2px dashed var(--rule);display:grid;place-items:center}
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+  .portrait:hover img{transform:scale(1.03)}
+  .portrait figcaption{display:none;color:var(--slate);font-size:.9rem;text-align:center;padding:20px}
+  .portrait.empty img{display:none}
+  .portrait.empty figcaption{display:block}
+  .portrait:not(.empty){border:none}
+
+  /* ---------- About ---------- */
+  .about{display:grid;grid-template-columns:1fr 2fr;gap:40px}
+  .about h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;letter-spacing:-.03em}
+  .about .body p{font-size:1.15rem;line-height:1.65;max-width:62ch}
+  .about .body p + p{margin-top:20px}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:44px;padding-top:28px;border-top:1px solid var(--rule)}
+  .facts h3{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:8px}
+  .facts p + p{margin-top:8px}
+  .facts p,.facts li{color:var(--slate);font-size:.95rem;line-height:1.55}
+  .facts ul{list-style:none}
+
+  /* ---------- Principles ---------- */
+  .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+  .principles > div{position:relative;padding-top:26px}
+  .principles > div::before{content:"";position:absolute;top:0;left:0;height:4px;width:100%;background:var(--spruce);transform-origin:left;transition:transform .9s var(--ease)}
+  .js .principles > div:not(.in)::before{transform:scaleX(.15)}
+  .principles > div::after{content:"";position:absolute;top:0;left:0;height:4px;width:48px;background:var(--marigold);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .principles > div:hover::after{transform:scaleX(1)}
+  .principles > div:nth-child(2){transition-delay:.12s}
+  .principles > div:nth-child(3){transition-delay:.24s}
+  .principles h3{font-family:var(--display);font-weight:700;font-size:1.45rem;line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+  .principles p{color:var(--slate)}
+
+  /* ---------- Footer ---------- */
+  footer{margin-top:140px;background:var(--spruce);color:#E7EFEC;padding:88px 0 48px}
+  footer h2{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,7vw,4.8rem);line-height:.95;letter-spacing:-.035em;color:#fff;max-width:14ch}
+  footer .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+  footer .btn{border-color:#fff;color:#fff}
+  footer .btn:hover{background:#fff;color:var(--spruce)}
+  footer .fine{margin-top:72px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:.85rem;color:#B9CCC6;display:grid;grid-template-columns:1fr 2fr;gap:40px}
+  footer .fine b{color:#fff;font-weight:600}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:880px){
+    .nav{flex-wrap:wrap;row-gap:8px;padding:16px 0}
+    .scrolled .nav{padding:10px 0}
+    .nav ul{width:100%;gap:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .nav ul::-webkit-scrollbar{display:none}
+    .nav ul a{font-size:.9rem;white-space:nowrap}
+    .hero-band{margin-top:-96px;padding-top:96px}
+    .hero{padding-top:40px}
+    .path{grid-template-columns:1fr;margin-top:56px;padding-left:4px}
+    .path li:last-child::after{left:13px;right:auto;top:22px;width:2px;height:56px;background:repeating-linear-gradient(180deg,var(--spruce) 0 6px,transparent 6px 12px);-webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent);mask-image:linear-gradient(to bottom,#000 30%,transparent)}
+    .path::before{left:13px;top:0;bottom:60px;width:2px;height:auto;transform-origin:top}
+    .js .path:not(.in)::before{transform:scaleY(0)}
+    .path .stop{padding:0 0 22px 40px}
+    .path .stop::before{top:2px;left:4px}
+    .path-detail{grid-template-columns:1fr;padding:18px 20px}
+    .path-detail .k{grid-row:auto}
+    .path-detail .d{grid-column:1}
+    .head,.venture,.about,.principles,.facts,footer .fine{grid-template-columns:1fr}
+    .head{gap:16px;margin-bottom:36px}
+    .venture,.venture.past{padding:32px 26px;gap:32px;border-radius:22px}
+    .principles{gap:36px}
+    section{padding-top:88px}
+    .flowbox{padding:24px 22px 18px}
+    .shots.trio,.shots.duo{grid-template-columns:minmax(0,1fr)}
+    .shots.trio .shot:first-child{grid-row:auto}
+    .shots-note{margin-top:-20px}
+    .lightbox .close{top:8px;right:8px}
+    .flow{grid-template-columns:1fr;gap:18px}
+    .flow .step{display:grid;grid-template-columns:48px 1fr;gap:0 14px;text-align:left;padding:0;align-items:center}
+    .flow li{text-align:left}
+    .flow li + li::before{top:-18px;left:23px;right:auto;width:2px;height:18px}
+    .flow .icon{width:48px;height:48px;margin:0;grid-row:span 2}
+    .flow span{margin-top:0}
+    .flow-foot{flex-direction:column;align-items:flex-start}
+    .bar{grid-template-columns:1fr;gap:6px}
+    .stat .n{font-size:2rem}
+    .portrait{max-width:220px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="topbar" id="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="name" href="#top">Paul Kang</a>
+      <ul>
+        <li><a href="#work">Ventures</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#principles">How I build</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<div class="hero-band">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero">
+      <h1><span class="w">I'm</span> <span class="w">a</span> <span class="w">builder.</span></h1>
+      <p class="tagline">Engineer by training. Learning to build the whole product.</p>
+      <p class="lede">I've spent a decade engineering data platforms and infrastructure. Now I'm learning the rest: what's worth making, who it's for and how it sustains itself.</p>
+      <div class="actions">
+        <a class="btn solid" href="#work">See my ventures <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn line" href="https://www.linkedin.com/in/paul-kang-05395b31/">LinkedIn</a>
+      </div>
+
+      <ol class="path" aria-label="Career path">
+        <li data-k="AOL" data-t="2014 to 2017, AOL and Verizon" data-d="Built and maintained a real-time data platform that monitored quality of service, so problems surfaced and got fixed before the people relying on it noticed."><button class="stop" type="button"><b>AOL</b><span>2014–2017<br>Real-time quality-of-service monitoring</span></button></li>
+        <li data-k="Moody's" data-t="2017 to 2018, Moody's Analytics" data-d="Built and supported the services behind financial risk products, where accuracy and reliability come before everything else."><button class="stop" type="button"><b>Moody's Analytics</b><span>2017–2018<br>Financial risk services</span></button></li>
+        <li data-k="HPE" data-t="2018 to 2020, Senior Data Engineer" data-d="Engineered a real-time IoT data platform that took in constant streams of device data and turned them into information teams could act on as it arrived."><button class="stop" type="button"><b>HPE</b><span>2018–2020<br>Senior engineer, real-time IoT data</span></button></li>
+        <li data-k="Apple" data-t="2020 to now, Platform infrastructure" data-d="Building and maintaining infrastructure tools that other engineers depend on every day, from first launch through years of support."><button class="stop" type="button"><b>Apple</b><span>2020–<br>Platform infrastructure tools</span></button></li>
+        <li class="now" data-k="USC" data-t="Now, graduate school at USC" data-d="Studying product, business and design alongside full-time engineering work."><button class="stop" type="button"><b>USC</b><span>M.S. Integrated Design, Business and Technology</span></button></li>
+      </ol>
+      <div class="path-detail" aria-live="polite">
+        <span class="k">USC</span>
+        <span class="t">Now, graduate school at USC</span>
+        <span class="d">Studying product, business and design alongside full-time engineering work.</span>
+      </div>
+      <p class="hint">Hover or tap a stop to see more.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="work">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>Ventures</h2>
+        <p>Two startup concepts I developed with teams at USC.</p>
+      </div>
+
+      <article class="venture lead reveal">
+        <div class="shots trio">
+          <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: OpenImpact home page"><img src="images/openimpact-hero.webp" width="1600" height="841" loading="lazy" alt="OpenImpact home page mockup. The headline reads 'See where your support goes', with a search box for causes and a panel tracking funding across initiatives."></button></figure>
+          <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Discover page"><img src="images/openimpact-discover.webp" width="1600" height="751" loading="lazy" alt="Discover page mockup showing organization cards, each with a verified transparency score, funds raised against a goal and an impact count."></button></figure>
+          <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Organization profile"><img src="images/openimpact-profile.webp" width="1600" height="867" loading="lazy" alt="Organization profile mockup with a transparency score, revenue, program ratio, people reached, a breakdown of how funds are used and identity verification."></button></figure>
+        </div>
+        <p class="shots-note">Concept mockups. The organizations and figures shown are sample data.</p>
+        <div class="flowbox">
+          <ol class="flow" aria-label="How a community need gets solved">
+            <li data-d="Anyone can raise a vital need for their community. Each need is written the same way, so it can be compared, funded and tracked."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg></div><b>A need is raised</b><span>by anyone in the community</span></button></li>
+            <li data-d="Anyone can propose a solution, written as a spec with milestones that can be checked independently."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg></div><b>The crowd proposes</b><span>solutions, written as checkable specs</span></button></li>
+            <li data-d="Verified experts review each proposal for feasibility and safety, and their vetting builds their standing in the trust network."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Experts vet</b><span>verified experts review each proposal</span></button></li>
+            <li data-d="The community chooses among vetted proposals through independent consensus, so no single party decides alone."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M9 10V5h6v5M8 14h8"/></svg></div><b>Community decides</b><span>through independent consensus</span></button></li>
+            <li class="key" data-d="Funders pay in stages, and money moves only when a milestone is verified. That's also where the platform earns its small fee."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M14.5 6.5A5 5 0 1 1 9.5 15"/><path d="M7 9l1.5 1.5L11 8"/></svg></div><b>Funds released in stages</b><span>only as milestones are verified</span></button></li>
+          </ol>
+          <div class="flow-foot">
+            <p class="flow-detail" aria-live="polite">Tap any step to see how it works.</p>
+            <button class="replay" type="button">Play again</button>
+          </div>
+        </div>
+        <div>
+          <span class="status live">In progress. Name not final.</span>
+          <h3>OpenImpact: see where your support goes</h3>
+          <p>A giving platform where communities raise needs, verified experts vet the proposed solutions and funders release money only as milestones are met. Anyone can see where the money went and what it achieved.</p>
+          <div class="actions">
+            <a class="btn solid" href="#">View pitch deck <span class="todo">[link]</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn line" href="#">View financial model <span class="todo">[link]</span></a>
+          </div>
+        </div>
+        <dl>
+          <div><dt>Who it helps</dt><dd>Communities with unmet needs, experts whose vetting should count and funders who want proof their money worked</dd></div>
+          <div><dt>How we'd measure it</dt><dd>Needs that reach funding, time from proposal to funding and the share of funds released against verified milestones</dd></div>
+          <div><dt>Business model</dt><dd>Funders pay a small fee on money released through verified milestones.</dd></div>
+          <div><dt>My role</dt><dd><span class="todo">[What you personally led]</span></dd></div>
+        </dl>
+      </article>
+
+      <article class="venture past reveal">
+        <div class="flowbox">
+          <ol class="flow" aria-label="How Ecotein makes protein">
+            <li data-d="Waste PET from bottles and packaging, most of which is never recycled today."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4v3l2 3v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-3z"/><path d="M8 12h8"/></svg></div><b>Extract</b><span>waste PET from recyclable materials</span></button></li>
+            <li data-d="The plastic is broken down into simple building blocks the microbes can eat. This is the costly step our model flagged."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h4l2-4 4 8 2-4h4"/></svg></div><b>Transform</b><span>into building blocks for microbes</span></button></li>
+            <li data-d="Microbes feed on those building blocks and multiply in fermenters."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="8" r="2.5"/><circle cx="14" cy="16" r="3.5"/><circle cx="7" cy="17" r="2"/></svg></div><b>Ferment</b><span>microbes grow protein</span></button></li>
+            <li data-d="The microbial biomass is harvested and dried into a protein powder."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 3H8z"/><path d="M8 7c-2 3-2 9 0 13h8c2-4 2-10 0-13"/><path d="M10 13h4"/></svg></div><b>Dry into powder</b><span>about 55% protein</span></button></li>
+            <li class="key" data-d="Feed mills blend it into fish and shrimp feed in place of fishmeal from wild-caught fish."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1-3M3 12l-1 3"/><circle cx="16" cy="11" r="1"/></svg></div><b>Fish and shrimp feed</b><span>replacing wild-caught fishmeal</span></button></li>
+          </ol>
+          <div class="flow-foot">
+            <p class="flow-detail" aria-live="polite">Tap any step to see how it works.</p>
+            <button class="replay" type="button">Play again</button>
+          </div>
+        </div>
+        <div class="shots duo">
+          <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Ecotein package and process"><img src="images/ecotein-package-process.webp" width="1600" height="880" loading="lazy" alt="Ecotein package design: a blue 25 kg bag of microbial protein powder, about 55% protein, made from recovered PET. Beside it, the process: extract, transform, ferment and dry into powder."></button></figure>
+          <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Ecotein impact in 2031"><img src="images/ecotein-impact-stats.webp" width="1600" height="836" loading="lazy" alt="Projected impact per year in 2031: about 7,865 tonnes of protein from 14,300 tonnes of plastic, about 25,000 tonnes of wild fish left in the sea and about 10,600 acres of farmland not needed."></button></figure>
+        </div>
+        <div>
+          <span class="status done">Completed</span>
+          <h3>Ecotein: fish-feed protein made from plastic waste</h3>
+          <p>Only a small fraction of the plastic ever made has been recycled, and fish farms still depend on fishmeal from wild-caught fish. Ecotein uses microbes to turn waste PET into a protein ingredient for fish and shrimp feed. It's based in Singapore and sells to feed mills across Southeast Asia.</p>
+          <p class="lesson">Our financial model showed that breaking down the plastic costs more than fishmeal sells for. The open question: a cheaper process or a higher-value market?</p>
+
+          <figure class="chart">
+            <div class="stats">
+              <div class="stat"><div class="n" data-to="0.6" data-pre="$" data-suf="B">$0.6B</div><div class="l">Southeast Asian aquafeed fishmeal market</div></div>
+              <div class="stat"><div class="n" data-to="2.1" data-pre="$" data-suf="M">$2.1M</div><div class="l">a year in revenue we could realistically win by year 5</div></div>
+            </div>
+            <p class="bars-title">Why the numbers didn't work yet</p>
+            <div class="bar cost">
+              <span class="lab">Cost to break down the plastic</span>
+              <div class="track" tabindex="0" style="--w:100%" aria-label="Cost to break down the plastic: higher than the fishmeal price"><div class="fill"></div><span class="tip">Cost per ton of protein <span class="todo">[$ from financial model]</span></span></div>
+            </div>
+            <div class="bar price">
+              <span class="lab">Price fishmeal sells for</span>
+              <div class="track" tabindex="0" style="--w:64%" aria-label="Price fishmeal sells for: lower than the breakdown cost"><div class="fill"></div><span class="tip">Fishmeal price per ton <span class="todo">[$ from financial model]</span></span></div>
+            </div>
+            <figcaption>Bar lengths are illustrative. <span class="todo">[Swap in exact figures from the final deck]</span></figcaption>
+          </figure>
+
+          <div class="actions">
+            <a class="btn solid" href="#">View final presentation <span class="todo">[link]</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn line" href="#">View product spec <span class="todo">[link]</span></a>
+          </div>
+        </div>
+        <dl>
+          <div><dt>Customer</dt><dd>Fish and shrimp feed mills in Vietnam, Indonesia and Thailand, starting with Singapore fish farms</dd></div>
+          <div><dt>Competition</dt><dd>Fishmeal, plus single-cell proteins such as Calysta and Unibio</dd></div>
+          <div><dt>What we built</dt><dd>Competitive map, market sizing, value proposition, product spec, financial model and funding plan</dd></div>
+          <div><dt>My role</dt><dd><span class="todo">[What you personally led]</span></dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="reveal">
+        <h2>About</h2>
+        <figure class="portrait">
+          <img src="images/paul.jpg" alt="Portrait of Paul Kang">
+        </figure>
+      </div>
+      <div class="body reveal">
+        <p>I've been a software engineer since 2014, building the systems that move and make sense of data at scale, along with the tools other engineers rely on every day. I came to software for its stability and stayed because I found I love building things.</p>
+        <p>Over the years I've learned that the technology is rarely the hard part. What matters is whether people can trust what you've built and whether it truly makes their lives better.</p>
+        <p>What I care about most is using what I have to help others, whether that's code, time or the kind of organizing that brings people together. I came to USC's Iovine and Young Academy to add business and design to my engineering, so I can shape the whole product and not just the systems underneath it.</p>
+        <div class="facts">
+          <div>
+            <h3>Education</h3>
+            <ul>
+              <li>M.S. Integrated Design, Business and Technology, USC</li>
+              <li>B.S. Information and Computer Science, UC Irvine</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Skills</h3>
+            <p>Engineering: real-time data systems, distributed systems, platform infrastructure and full-stack development</p>
+            <p>Product and business: market sizing, product specs, pricing and financial models</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>How I build</h2>
+      </div>
+      <div class="principles">
+        <div class="reveal">
+          <h3>Purpose</h3>
+          <p>I want to know why something matters before I build it: who it's for, how it helps them and how we'll know it made a difference.</p>
+        </div>
+        <div class="reveal">
+          <h3>Transparency</h3>
+          <p>People trust what they can see. I share the reasoning, numbers and tradeoffs behind what I build, so others can question it and make it better.</p>
+        </div>
+        <div class="reveal">
+          <h3>Collaboration</h3>
+          <p>No one person has all the answers. More minds on a problem catch more blind spots and find better ideas, so I bring people in early and make room for every voice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2 class="reveal">Let's build something that helps.</h2>
+    <div class="links">
+      <a class="btn" href="mailto:kang.pd@gmail.com">Email me <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn" href="https://www.linkedin.com/in/paul-kang-05395b31/">LinkedIn</a>
+      <a class="btn" href="https://github.com/padaka">GitHub</a>
+    </div>
+    <div class="fine">
+      <p><b>Paul Kang</b><br>California</p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lightbox" aria-label="Enlarged image">
+  <img alt="">
+  <p></p>
+  <button class="close" type="button" aria-label="Close">&times;</button>
+</dialog>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  /* ---------- Sticky bar, scroll progress, active section ---------- */
+  var bar = $('.topbar'), prog = $('.progress'), ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
+      bar.classList.toggle('scrolled', y > 12);
+      prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  var links = $$('.nav ul a');
+  var secIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      links.forEach(function(a){ a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'); });
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  ['work','about','principles','contact'].forEach(function(id){ var el = document.getElementById(id); if(el) secIO.observe(el); });
+
+  /* ---------- Reveal on scroll ---------- */
+  var watched = $$('.reveal, .path, .flow, .chart, .principles > div');
+  function reveal(el){
+    el.classList.add('in');
+    if(el.classList.contains('flow')) playFlow(el);
+    if(el.classList.contains('chart')) countUp(el);
+  }
+  if(reduce || !('IntersectionObserver' in window)){
+    watched.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); reveal(e.target); } });
+    }, {threshold:.25, rootMargin:'0px 0px -6% 0px'});
+    watched.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Explorable timeline ---------- */
+  var detail = $('.path-detail'), stops = $$('.path li');
+  function pick(li){
+    if(li.classList.contains('sel')) return;
+    stops.forEach(function(s){ s.classList.remove('sel'); });
+    li.classList.add('sel');
+    $('.k', detail).textContent = li.dataset.k;
+    $('.t', detail).textContent = li.dataset.t;
+    $('.d', detail).textContent = li.dataset.d;
+    detail.classList.remove('swap'); void detail.offsetWidth; detail.classList.add('swap');
+  }
+  stops.forEach(function(li){
+    var b = $('.stop', li);
+    b.addEventListener('click', function(){ pick(li); });
+    b.addEventListener('focus', function(){ pick(li); });
+    b.addEventListener('mouseenter', function(){ pick(li); });
+  });
+  pick($('.path li.now'));
+
+  /* ---------- Venture flows ---------- */
+  function centerOf(flowbox, li){
+    var r = $('.icon', li).getBoundingClientRect(), b = flowbox.getBoundingClientRect();
+    return {x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2};
+  }
+  function moveToken(flow, i){
+    var box = flow.parentNode, t = box._token, li = flow.children[i];
+    if(!t || !li) return;
+    var c = centerOf(box, li);
+    t.style.left = c.x + 'px'; t.style.top = c.y + 'px';
+    box._at = i;
+  }
+  function playFlow(flow){
+    if(reduce) return;
+    var box = flow.parentNode, items = $$('li', flow);
+    if(!box._token){ box._token = document.createElement('span'); box._token.className = 'token'; box.appendChild(box._token); }
+    (box._timers || []).forEach(clearTimeout); box._timers = [];
+    flow.classList.add('armed');
+    items.forEach(function(li){ li.classList.remove('lit'); });
+    var t = box._token;
+    t.style.transition = 'none'; moveToken(flow, 0); void t.offsetWidth; t.style.transition = '';
+    t.style.opacity = '1';
+    items.forEach(function(li, i){
+      box._timers.push(setTimeout(function(){ li.classList.add('lit'); moveToken(flow, i); }, 250 + i * 650));
+    });
+    box._timers.push(setTimeout(function(){ flow.classList.remove('armed'); t.style.opacity = '0'; }, 250 + items.length * 650));
+  }
+  $$('.flowbox').forEach(function(box){
+    var flow = $('.flow', box), out = $('.flow-detail', box);
+    $$('li', flow).forEach(function(li){
+      function show(){
+        $$('li', flow).forEach(function(x){ x.classList.remove('sel'); });
+        li.classList.add('sel');
+        out.innerHTML = '';
+        var b = document.createElement('b'); b.textContent = $('b', li).textContent + '. ';
+        out.appendChild(b); out.appendChild(document.createTextNode(li.dataset.d));
+      }
+      $('.step', li).addEventListener('click', show);
+      $('.step', li).addEventListener('focus', show);
+    });
+    $('.replay', box).addEventListener('click', function(){ playFlow(flow); });
+    if(reduce) $('.replay', box).hidden = true;
+  });
+  addEventListener('resize', function(){
+    $$('.flowbox').forEach(function(box){ if(box._token) moveToken($('.flow', box), box._at || 0); });
+  });
+
+  /* ---------- Lightbox ---------- */
+  var lb = $('.lightbox');
+  if(lb && lb.showModal){
+    $$('.shot .zoom').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var img = $('img', btn);
+        $('img', lb).src = img.src; $('img', lb).alt = img.alt;
+        $('p', lb).textContent = img.alt;
+        lb.showModal();
+      });
+    });
+    $('.close', lb).addEventListener('click', function(){ lb.close(); });
+    lb.addEventListener('click', function(e){ if(e.target === lb) lb.close(); });
+  }
+
+  /* ---------- Count-up figures ---------- */
+  function countUp(chart){
+    $$('.stat .n', chart).forEach(function(n){
+      var to = parseFloat(n.dataset.to), pre = n.dataset.pre || '', suf = n.dataset.suf || '', t0 = null, dur = 1200;
+      function step(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        n.textContent = pre + (to * e).toFixed(1) + suf;
+        if(p < 1) requestAnimationFrame(step);
+      }
+      if(!reduce) requestAnimationFrame(step);
+    });
+  }
+
+  /* ---------- Hero dot network ---------- */
+  var cv = document.getElementById('net'), ctx = cv.getContext && cv.getContext('2d');
+  if(!ctx) return;
+  var band = $('.hero-band'), W = 0, H = 0, pts = [], mouse = {x:-1e4, y:-1e4}, running = false, visible = true;
+  function size(){
+    var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(24, Math.min(90, Math.round(W * H / 15000)));
+    pts = [];
+    for(var i = 0; i < n; i++) pts.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22, m: i % 11 === 0});
+    draw();
+  }
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    var LINK = 130, i, j, p, q, dx, dy, d;
+    for(i = 0; i < pts.length; i++){
+      p = pts[i];
+      if(!reduce){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -10) p.x = W + 10; if(p.x > W + 10) p.x = -10;
+        if(p.y < -10) p.y = H + 10; if(p.y > H + 10) p.y = -10;
+        dx = mouse.x - p.x; dy = mouse.y - p.y; d = Math.sqrt(dx*dx + dy*dy);
+        if(d < 170){ p.x += dx * .006; p.y += dy * .006; }
+      }
+    }
+    for(i = 0; i < pts.length; i++){
+      p = pts[i];
+      for(j = i + 1; j < pts.length; j++){
+        q = pts[j]; dx = p.x - q.x; dy = p.y - q.y; d = dx*dx + dy*dy;
+        if(d < LINK*LINK){
+          d = Math.sqrt(d);
+          var near = Math.hypot(mouse.x - (p.x+q.x)/2, mouse.y - (p.y+q.y)/2) < 170 ? 2.2 : 1;
+          ctx.strokeStyle = 'rgba(30,77,69,' + ((1 - d/LINK) * .14 * near).toFixed(3) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    for(i = 0; i < pts.length; i++){
+      p = pts[i];
+      var close = Math.hypot(mouse.x - p.x, mouse.y - p.y) < 170;
+      ctx.fillStyle = p.m ? 'rgba(227,160,47,' + (close ? .9 : .55) + ')' : 'rgba(30,77,69,' + (close ? .55 : .28) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.m ? 2.6 : 1.8, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  function loop(){
+    if(!visible || document.hidden || reduce){ running = false; return; }
+    draw(); requestAnimationFrame(loop);
+  }
+  function start(){ if(!running && !reduce){ running = true; requestAnimationFrame(loop); } }
+  band.addEventListener('pointermove', function(e){
+    if(e.pointerType !== 'mouse') return;
+    var r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  band.addEventListener('pointerleave', function(){ mouse.x = mouse.y = -1e4; });
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if(visible) start(); }).observe(band);
+  document.addEventListener('visibilitychange', start);
+  var rt; addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(size, 150); });
+  size(); start();
+})();
+</script>
+</body>
+</html>
