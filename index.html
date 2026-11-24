@@ -121,7 +121,7 @@
 
   /* ---------- Sections ---------- */
   section{padding:120px 0 0}
-  #work{padding-top:56px}
+  #about{padding-top:56px}
   .head{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:end;margin-bottom:36px}
   .head h2{font-family:var(--display);font-weight:700;font-size:var(--fs-h2);line-height:var(--lh-tight);letter-spacing:-.03em}
   .head p{color:var(--slate);max-width:58ch}
@@ -269,7 +269,7 @@
     .venture,.venture.past{padding:32px 26px;gap:32px;border-radius:22px}
     .principles{gap:36px}
     section{padding-top:88px}
-    #work{padding-top:48px}
+    #about{padding-top:48px}
     .flowbox{padding:24px 22px 18px}
     .shots.trio,.shots.duo{grid-template-columns:minmax(0,1fr)}
     .shots.trio .shot:first-child{grid-row:auto}
@@ -298,8 +298,8 @@
     <nav class="nav" aria-label="Main">
       <a class="name" href="#top">Paul Daehan Kang</a>
       <ul>
-        <li><a href="#work">Ventures</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#work">Ventures</a></li>
         <li><a href="#principles">How I build</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -337,6 +337,35 @@
 </div>
 
 <main>
+  <section id="about">
+    <div class="wrap about">
+      <div class="reveal">
+        <h2>About</h2>
+        <figure class="portrait">
+          <img src="images/paul.jpg" alt="Portrait of Paul Daehan Kang">
+        </figure>
+      </div>
+      <div class="body reveal">
+        <p>I've been a software engineer since 2014, building the systems that move and make sense of data at scale, along with the tools other engineers rely on every day. I came to software for its stability and stayed because I found I love building things.</p>
+        <p>Over the years I've learned that the technology is rarely the hard part. What matters is whether people can trust what you've built and whether it truly makes their lives better.</p>
+        <p>What I care about most is using what I have to help others, whether that's code, time or the kind of organizing that brings people together. I came to USC's Iovine and Young Academy to add business and design to my engineering, so I can shape the whole product and not just the systems underneath it.</p>
+        <div class="facts">
+          <div>
+            <h3>Education</h3>
+            <ul>
+              <li>M.S. Integrated Design, Business and Technology, USC</li>
+              <li>B.S. Information and Computer Science, UC Irvine</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Skills</h3>
+            <p>Engineering: real-time data systems, distributed systems, platform infrastructure and full-stack development</p>
+            <p>Product and business: market sizing, product specs, pricing and financial models</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="work">
     <div class="wrap">
       <div class="head reveal">
@@ -427,35 +456,6 @@
     </div>
   </section>
 
-  <section id="about">
-    <div class="wrap about">
-      <div class="reveal">
-        <h2>About</h2>
-        <figure class="portrait">
-          <img src="images/paul.jpg" alt="Portrait of Paul Daehan Kang">
-        </figure>
-      </div>
-      <div class="body reveal">
-        <p>I've been a software engineer since 2014, building the systems that move and make sense of data at scale, along with the tools other engineers rely on every day. I came to software for its stability and stayed because I found I love building things.</p>
-        <p>Over the years I've learned that the technology is rarely the hard part. What matters is whether people can trust what you've built and whether it truly makes their lives better.</p>
-        <p>What I care about most is using what I have to help others, whether that's code, time or the kind of organizing that brings people together. I came to USC's Iovine and Young Academy to add business and design to my engineering, so I can shape the whole product and not just the systems underneath it.</p>
-        <div class="facts">
-          <div>
-            <h3>Education</h3>
-            <ul>
-              <li>M.S. Integrated Design, Business and Technology, USC</li>
-              <li>B.S. Information and Computer Science, UC Irvine</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Skills</h3>
-            <p>Engineering: real-time data systems, distributed systems, platform infrastructure and full-stack development</p>
-            <p>Product and business: market sizing, product specs, pricing and financial models</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="principles">
     <div class="wrap">
@@ -526,7 +526,7 @@
       links.forEach(function(a){ a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'); });
     });
   }, {rootMargin:'-45% 0px -50% 0px'});
-  ['work','about','principles','contact'].forEach(function(id){ var el = document.getElementById(id); if(el) secIO.observe(el); });
+  ['about','work','principles','contact'].forEach(function(id){ var el = document.getElementById(id); if(el) secIO.observe(el); });
 
   /* ---------- Reveal on scroll ---------- */
   $('.nav .name').addEventListener('click', function(e){
