@@ -121,6 +121,8 @@
   .venture.lead h3{font-size:clamp(1.9rem,3.8vw,2.7rem)}
   .venture.past{padding:44px 56px}
   .venture + .venture{margin-top:28px}
+  .vhead{grid-column:1/-1;margin-bottom:-24px}
+  .vhead h3{margin-bottom:0;max-width:24ch}
   .status{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;color:var(--slate);margin-bottom:18px}
   .status::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--marigold)}
   .status.live::before{animation:pulse 2.2s ease-out infinite}
@@ -341,6 +343,10 @@
       </div>
 
       <article class="venture lead reveal">
+        <div class="vhead">
+          <span class="status live">In progress. Name not final.</span>
+          <h3>OpenImpact: see where your support goes</h3>
+        </div>
         <div class="shots trio">
           <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: OpenImpact home page"><img src="images/openimpact-hero.webp" width="1600" height="841" loading="lazy" alt="OpenImpact home page mockup. The headline reads 'See where your support goes', with a search box for causes and a panel tracking funding across initiatives."></button></figure>
           <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Discover page"><img src="images/openimpact-discover.webp" width="1600" height="751" loading="lazy" alt="Discover page mockup showing organization cards, each with a verified transparency score, funds raised against a goal and an impact count."></button></figure>
@@ -360,8 +366,6 @@
           </div>
         </div>
         <div>
-          <span class="status live">In progress. Name not final.</span>
-          <h3>OpenImpact: see where your support goes</h3>
           <p>A giving platform where communities raise needs, verified experts vet the proposed solutions and funders release money only as milestones are met. Anyone can see where the money went and what it achieved.</p>
         </div>
         <dl>
@@ -373,6 +377,10 @@
       </article>
 
       <article class="venture past reveal">
+        <div class="vhead">
+          <span class="status done">Completed</span>
+          <h3>Ecotein: fish-feed protein made from plastic waste</h3>
+        </div>
         <div class="flowbox">
           <ol class="flow" aria-label="How Ecotein makes protein">
             <li data-d="Waste PET from bottles and packaging, most of which is never recycled today."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4v3l2 3v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-3z"/><path d="M8 12h8"/></svg></div><b>Extract</b><span>waste PET from recyclable materials</span></button></li>
@@ -391,8 +399,6 @@
           <figure class="shot"><button class="zoom" type="button" aria-label="Enlarge: Ecotein impact in 2031"><img src="images/ecotein-impact-stats.webp" width="1600" height="836" loading="lazy" alt="Projected impact per year in 2031: about 7,865 tonnes of protein from 14,300 tonnes of plastic, about 25,000 tonnes of wild fish left in the sea and about 10,600 acres of farmland not needed."></button></figure>
         </div>
         <div>
-          <span class="status done">Completed</span>
-          <h3>Ecotein: fish-feed protein made from plastic waste</h3>
           <p>Only a small fraction of the plastic ever made has been recycled, and fish farms still depend on fishmeal from wild-caught fish. Ecotein uses microbes to turn waste PET into a protein ingredient for fish and shrimp feed. It's based in Singapore and sells to feed mills across Southeast Asia.</p>
           <p class="lesson">Our financial model showed that breaking down the plastic costs more than fishmeal sells for. The open question: a cheaper process or a higher-value market?</p>
 
