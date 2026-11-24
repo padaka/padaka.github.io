@@ -202,7 +202,7 @@
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .stat .n{font-family:var(--display);font-weight:700;font-size:var(--fs-h3);line-height:var(--lh-tight);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
   .stats.one{grid-template-columns:minmax(0,1fr)}
-  .chart .sub{font-family:var(--display);font-weight:700;font-size:var(--fs-title);margin:20px 0 14px;padding-top:18px;border-top:1px solid var(--rule)}
+  .chart .sub{font-family:var(--display);font-weight:700;font-size:var(--fs-title);margin:20px 0 0;padding-top:18px;border-top:1px solid var(--rule)}
   .chart figcaption{font-size:var(--fs-xs);color:var(--slate);margin-top:14px}
   .stat .l{font-size:var(--fs-xs);color:var(--slate);margin-top:6px;line-height:1.4}
 
@@ -355,35 +355,31 @@
         </div>
         <div class="flowbox">
           <ol class="flow" aria-label="How a community need gets solved">
-            <li data-d="Anyone can raise a vital need for their community. Each need is written the same way, so it can be compared, funded and tracked."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg></div><b>A need is raised</b><span>by anyone in the community</span></button></li>
-            <li data-d="Anyone can propose a solution, written as a spec with milestones that can be checked independently."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg></div><b>The crowd proposes</b><span>solutions, written as checkable specs</span></button></li>
-            <li data-d="Verified experts review each proposal for feasibility and safety, and their vetting builds their standing in the trust network."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Experts vet</b><span>verified experts review each proposal</span></button></li>
-            <li data-d="The community chooses among vetted proposals through independent consensus, so no single party decides alone."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M9 10V5h6v5M8 14h8"/></svg></div><b>Community decides</b><span>through independent consensus</span></button></li>
-            <li class="key" data-d="Funders pay in stages, and money moves only when a milestone is verified. That's also where the platform earns its small fee."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M14.5 6.5A5 5 0 1 1 9.5 15"/><path d="M7 9l1.5 1.5L11 8"/></svg></div><b>Funds released in stages</b><span>only as milestones are verified</span></button></li>
+            <li data-d="Anyone can flag a community need with evidence. An expert confirms it's real, and the residents it affects confirm it's a priority."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg></div><b>A need is raised</b><span>by anyone, with evidence</span></button></li>
+            <li data-d="Engineers, students and nonprofits propose plans with a design, builder and cost. Experts vet each plan and set the checks every stage must pass."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg></div><b>Plans are proposed</b><span>and vetted by experts</span></button></li>
+            <li data-d="The residents served and the owner of what gets built choose the plan. Decisions move a project forward, but they never move money."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M9 10V5h6v5M8 14h8"/></svg></div><b>Community decides</b><span>residents choose the plan</span></button></li>
+            <li data-d="Independent verifiers check each stage against the plan. The builders and the experts who vetted it can never verify it, and two verifiers must agree on big payments."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Each stage is verified</b><span>by independent checkers</span></button></li>
+            <li class="key" data-d="Each verified stage releases its payment. No cut is taken from gifts, just a published verification fee in each project's budget."><button class="step" type="button"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M14.5 6.5A5 5 0 1 1 9.5 15"/><path d="M7 9l1.5 1.5L11 8"/></svg></div><b>Funds released in stages</b><span>only after verification</span></button></li>
           </ol>
           <div class="flow-foot">
             <p class="flow-detail" aria-live="polite"></p>
           </div>
         </div>
         <div>
-          <p>A giving platform where communities raise needs, verified experts vet the proposed solutions and funders release money only as milestones are met. Anyone can see where the money went and what it achieved.</p>
+          <p>A nonprofit giving platform for community projects. Residents choose what gets built, experts vet the plans, and each stage is paid only after independent verifiers confirm the work. Donors can see every step their money paid for.</p>
           <figure class="chart">
             <div class="stats one">
               <div class="stat"><div class="n" data-to="62" data-dec="0" data-pre="$" data-suf="M">$62M</div><div class="l">of $4.8B in FEMA resilience funding was paid out over four years. Just 37 of 1,245 funded projects finished their work.</div></div>
             </div>
             <figcaption>Source: GAO-26-107774</figcaption>
-            <p class="sub">First case study: clean water in California</p>
-            <div class="stats">
-              <div class="stat"><div class="n" data-to="645279" data-dec="0">645,279</div><div class="l">Californians served by failing water systems</div></div>
-              <div class="stat"><div class="n" data-to="4.9" data-pre="$" data-suf="B">$4.9B</div><div class="l">needed to fix failing and at-risk systems, against about $181M a year in state grants</div></div>
-            </div>
+            <p class="sub">Case study: 645,279 Californians served by failing water systems</p>
             <figcaption>Source: California State Water Board, as of Dec 31, 2025</figcaption>
           </figure>
         </div>
         <dl>
-          <div><dt>Who it helps</dt><dd>Communities with unmet needs, experts whose vetting should count and funders who want proof their money worked</dd></div>
+          <div><dt>Who it helps</dt><dd>Communities with unmet needs, and donors who want proof of what their money built</dd></div>
           <div><dt>How we'd measure it</dt><dd>Needs that reach funding, time from proposal to funding and the share of funds released against verified milestones</dd></div>
-          <div><dt>Business model</dt><dd>Funders pay a small fee on money released through verified milestones.</dd></div>
+          <div><dt>Business model</dt><dd>A nonprofit. No cut is taken from gifts. Each project's budget includes a published verification fee, the same for every project, that pays the verifiers.</dd></div>
           <div><dt>My role</dt><dd>Equal partner on the founding team, shaping strategy, product and the pitch. Came up with the original idea and designed the business model.</dd></div>
         </dl>
       </article>
