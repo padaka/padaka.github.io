@@ -532,6 +532,12 @@
   ['work','about','principles','contact'].forEach(function(id){ var el = document.getElementById(id); if(el) secIO.observe(el); });
 
   /* ---------- Reveal on scroll ---------- */
+  $('.nav .name').addEventListener('click', function(e){
+    e.preventDefault();
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+    if(history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+  });
+
   var watched = $$('.reveal, .path, .flow, .chart, .principles > div');
   function reveal(el){
     el.classList.add('in');
