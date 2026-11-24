@@ -185,7 +185,8 @@
   .shots.trio .shot:first-child{grid-row:span 2}
   .shots.duo{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .shots.duo{align-items:start}
-  .shots.duo .zoom,.shots.duo img{height:auto}
+  .shots.duo .zoom{aspect-ratio:20/11;height:auto;background:#0A0C10}
+  .shots.duo img{object-fit:contain;object-position:center}
   .shot{margin:0}
   .shot .zoom{display:block;width:100%;height:100%;border-radius:16px;overflow:hidden;background:var(--mist);box-shadow:0 0 0 1px var(--rule);cursor:zoom-in;transition:transform .35s var(--ease),box-shadow .35s}
   .shot .zoom:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--rule),0 20px 36px -22px rgba(24,32,42,.45)}
