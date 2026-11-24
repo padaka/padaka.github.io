@@ -1,6 +1,6 @@
 # padaka.github.io
 
-Personal portfolio site for Paul Kang.
+Personal portfolio site for Paul Daehan Kang.
 
 Live at **https://padaka.github.io**
 
