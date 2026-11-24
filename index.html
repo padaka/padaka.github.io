@@ -201,6 +201,8 @@
   .chart{margin:26px 0 6px;padding:22px 24px;background:var(--mist);border-radius:18px;max-width:60ch}
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .stat .n{font-family:var(--display);font-weight:700;font-size:var(--fs-h3);line-height:var(--lh-tight);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .stats.one{grid-template-columns:minmax(0,1fr)}
+  .chart .sub{font-family:var(--display);font-weight:700;font-size:var(--fs-title);margin:20px 0 14px;padding-top:18px;border-top:1px solid var(--rule)}
   .chart figcaption{font-size:var(--fs-xs);color:var(--slate);margin-top:14px}
   .stat .l{font-size:var(--fs-xs);color:var(--slate);margin-top:6px;line-height:1.4}
 
@@ -366,6 +368,11 @@
         <div>
           <p>A giving platform where communities raise needs, verified experts vet the proposed solutions and funders release money only as milestones are met. Anyone can see where the money went and what it achieved.</p>
           <figure class="chart">
+            <div class="stats one">
+              <div class="stat"><div class="n" data-to="62" data-dec="0" data-pre="$" data-suf="M">$62M</div><div class="l">of $4.8B in FEMA resilience funding was paid out over four years. Just 37 of 1,245 funded projects finished their work.</div></div>
+            </div>
+            <figcaption>Source: GAO-26-107774</figcaption>
+            <p class="sub">First case study: clean water in California</p>
             <div class="stats">
               <div class="stat"><div class="n" data-to="645279" data-dec="0">645,279</div><div class="l">Californians served by failing water systems</div></div>
               <div class="stat"><div class="n" data-to="4.9" data-pre="$" data-suf="B">$4.9B</div><div class="l">needed to fix failing and at-risk systems, against about $181M a year in state grants</div></div>
